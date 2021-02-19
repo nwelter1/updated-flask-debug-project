@@ -34,11 +34,7 @@ def register():
         db.session.commit()
 
         # Flask Email Sender 
-        msg = Message(f'Thanks for Signing Up! {email}', recipients=[email])
-        msg.body = ('Congrats on signing up! Looking forward to your posts!')
-        msg.html = ('<h1> Welcome to debug_project_app!</h1>' '<p> This will be fun! </p>')
-
-        mail.send(msg)
+        
     return render_template('register.html',form = form)
 
 # Post Submission Route
