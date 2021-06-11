@@ -1,5 +1,5 @@
-from debug_project_app import app, Message, mail
-from flask import render_template, request, redirect, url_for
+from debug_project_app import app, Message, mail, db
+from flask import Flask, render_template, request, redirect, url_for
 
 # Import for Forms
 from debug_project_app.forms import UserInfoForm, PostForm, LoginForm
@@ -10,21 +10,23 @@ from debug_project_app.models import User, Post, check_password_hash
 # Import for Flask Login - login_required, login_user,current_user, logout_user
 from flask_login import login_required,login_user, current_user,logout_user
 
+app = Flask(__name__)
+
 # Home Route
 @app.route('/')
 def home():
     posts = Post.query.all
-    returnrender_template("homes.html", posts = posts)
+    return render_template("home.html", posts = posts)
 
 # Register Route
 @app.route('/register', methods=['GET','POST'])
 def register():
     form = UserInfoForm()
-    if request.method = 'POST' and form.validate():
+    if request.method == 'POST' and form.validate():
         # Get Information
-        username = form.username.data
-        password = form.password.data
-        email = form.email
+        username = str(form.username.data)
+        password = str(form.password.data)
+        email = str(form.email()
         print("\n",username,password,email)
         # Create an instance of User
         user = User(username,email,password)
@@ -35,17 +37,17 @@ def register():
 
         # Flask Email Sender 
         
-    return render_template('register.html',form = form)
+    return render_template('register.html', form = form)
 
 # Post Submission Route
 @app.route('/posts', methods=['GET','POST'])
 @login_required
 def posts():
-    post = PostForm
+    post = PostForm()
     if request.method == 'POST' and post.validate():
         title = post.title.data
         content = post.content.data
-        user_id = current_user
+        user_id = current_user.id
         print('\n',title,content)
         post = Post(title,content,user_id)
 
