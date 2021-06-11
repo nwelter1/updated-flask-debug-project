@@ -6,3 +6,4 @@ There are roughly 15-20 bugs produced inside of this project. All of the bugs ha
 
 Once a working app is produced, commit the project to a personal seperate github repository.# DebuggingFlask
 # DebuggingFlask
+# DebuggingFlask
